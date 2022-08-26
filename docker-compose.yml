@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        environment:
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Sql@123"
+            MSSQL_PID: Express
+
+        ports:
+            - "1433:1433"
+    
+    org:
+        build: .\org
+        depends_on:
+            - sqlserver
+        ports: 
+            - "8080:80"
+            - "443:443"
